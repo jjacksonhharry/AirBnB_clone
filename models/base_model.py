@@ -11,19 +11,29 @@ class BaseModel():
     This is the class BaseModel
     It defines all common attributes and methods for other classes
     """
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         """
         Initializes an instances
         """
-        self.id = str(uuid.uuid4())
-        self.created_at = datetime.now()
-        self.updated_at = datetime.now()
+        if len(kwargs) != 0:
+            for key, value in kwargs.items():
+                if key == '__class__':
+                    continue
+                elif key == 'updated_at' or key == 'created_at':
+                    setattr(self, key, datetime.fromisoformat(value))
+                else:
+                    setattr(self, key, value)
+
+        else:
+            self.id = str(uuid.uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
 
     def __str__(self):
         """
         Returns a  string representation of an instance
         """
-        string = "[" + self.__class__.__name__ + "] (" + str(self.id) + ") "
+        string = "[" + self.__class__.__name__ + "] (" + self.id + ") "
         return string + str(self.__dict__)
 
     def save(self):
