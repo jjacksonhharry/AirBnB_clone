@@ -6,6 +6,7 @@ from datetime import datetime
 import uuid
 from . import storage
 
+
 class BaseModel():
     """
     This is the class BaseModel
@@ -50,8 +51,10 @@ class BaseModel():
         Returns a dictionary containg all key/values of
         __dict__ instance
         """
-        self.created_at = self.created_at.isoformat()
-        self.updated_at = self.updated_at.isoformat()
+        if isinstance(self.created_at, datetime):
+            self.created_at = self.created_at.isoformat()
+        if isinstance(self.updated_at, datetime):
+            self.updated_at = self.updated_at.isoformat()
         obj_dict = self.__dict__
         obj_dict['__class__'] = self.__class__.__name__
         return obj_dict

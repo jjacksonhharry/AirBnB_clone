@@ -6,6 +6,7 @@ from unittest.mock import patch
 from datetime import datetime, timedelta
 from models.base_model import BaseModel
 
+
 class TestBaseModel(unittest.TestCase):
     def setUp(self):
         self.base_model = BaseModel()
@@ -49,8 +50,8 @@ class TestBaseModel(unittest.TestCase):
         return obj_dict
 
     def test_str_method(self):
-        expected_str = "[BaseModel] ({}) {}".format(self.base_model.id, self.base_model.__dict__)
-        self.assertEqual(str(self.base_model), expected_str)
+        strn = f"[BaseModel] ({self.base_model.id}) {self.base_model.__dict__}"
+        self.assertEqual(str(self.base_model), strn)
 
     @patch('models.base_model.storage')
     def test_init_with_kwargs(self, mock_storage):
@@ -65,6 +66,7 @@ class TestBaseModel(unittest.TestCase):
 
         self.assertEqual(new_model.id, 'some_id')
         self.assertEqual(new_model.name, 'My_Model')
+
 
 if __name__ == '__main__':
     unittest.main()
