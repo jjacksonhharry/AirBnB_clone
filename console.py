@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import cmd
 from models.base_model import BaseModel
+from models import storage
 
 
 class HBNBCommand(cmd.Cmd):
@@ -23,6 +24,34 @@ class HBNBCommand(cmd.Cmd):
                 instance.save()
             except KeyError:
                 print("** class doesn't exist **")
+
+    def do_show(self, args):
+        """
+        Prints the string representation of an instance based on class and id
+        """
+        if args == "":
+            print("** class name missing **")
+        else:
+            args = args.split()
+            name = args[0]
+            if len(args) != 1:
+                obj_id = args[1]
+            else:
+                obj_id = ""
+            if name not in globals():
+                print("** class doesn't exist **")
+            elif obj_id == "":
+                print("** instance id missing **")
+            else:
+                id_exists = False
+                objects = storage.all()
+                for key, obj in objects.items():
+                    if obj_id == obj.id:
+                        id_exists = True
+                        print(obj)
+
+                if id_exists is False:
+                    print("** no instance found ** ")
 
     def do_quit(self, arg):
         """
