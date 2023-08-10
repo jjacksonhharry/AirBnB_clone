@@ -86,6 +86,27 @@ class HBNBCommand(cmd.Cmd):
                     del objects[to_delete]
                     storage.save()
 
+    def do_all(self, args):
+        """
+        Prints all string representations of all instances
+        based on or not the class name
+        """
+        object_list = []
+        objects = storage.all()
+        if args == "":
+            for key, obj in objects.items():
+                object_list.append(str(obj))
+            print(object_list)
+        elif args in globals():
+            for key, obj in objects.items():
+                class_name, obj_id = key.split('.')
+                if args == class_name:
+                    object_list.append(str(obj))
+            print(object_list)
+        else:
+            print("** class doesn't exist **")
+
+
     def do_quit(self, arg):
         """
         Quits and exits the program
@@ -126,6 +147,13 @@ class HBNBCommand(cmd.Cmd):
         """
         print("Deletes an instance based on class name and id")
         print("Usage: destroy <class_name> <id>")
+
+    def help_all(self):
+        """
+        Shows a description of all command
+        """
+        print("Prints all string representation based or not on class name")
+        print("Usage: all / all <class_name>")
 
     def help_quit(self):
         """
