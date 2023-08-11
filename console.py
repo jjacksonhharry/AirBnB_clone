@@ -110,6 +110,8 @@ class HBNBCommand(cmd.Cmd):
         """
         Updates an instance based on class name and id
         """
+        args = arg.split()
+
         if arg == "":
             print("** class name missing ***")
         else:
@@ -146,9 +148,12 @@ class HBNBCommand(cmd.Cmd):
                 print("** attribute name missing **")
                 return
 
+            attribute_value = args[3]
+            attr_type = type(getattr(instance, attribute_name, None))
+
             try:
-                attribute_value = args[3]
-            except IndexError:
+                attribute_value = attr_type(attribute_value) # Cast the value to the attribute type
+            except ValueError:
                 print("** value missing **")
                 return
 

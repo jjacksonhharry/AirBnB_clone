@@ -33,8 +33,9 @@ class FileStorage():
         Returns a dictionary with the needed classes
         """
         from models.base_model import BaseModel
+        from models.user import User
 
-        return {'BaseModel': BaseModel}
+        return {'BaseModel': BaseModel, 'User': User}
 
     def save(self):
         """
