@@ -2,6 +2,7 @@
 import cmd
 from models.base_model import BaseModel
 from models import storage
+from models.user import User
 
 
 class HBNBCommand(cmd.Cmd):
@@ -95,13 +96,13 @@ class HBNBCommand(cmd.Cmd):
         objects = storage.all()
         if args == "":
             for key, obj in objects.items():
-                object_list.append(str(obj))
+                object_list.append(obj.__str__())
             print(object_list)
         elif args in globals():
             for key, obj in objects.items():
                 class_name, obj_id = key.split('.')
                 if args == class_name:
-                    object_list.append(str(obj))
+                    object_list.append(obj.__str__())
             print(object_list)
         else:
             print("** class doesn't exist **")
@@ -116,11 +117,6 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing ***")
         else:
             args = arg.split()
-            if len(args) >= 4:
-                name = arg[0]
-                obj_id = arg[1]
-                attribute_name = arg[2]
-                attribute_vale = arg[3]
 
             if args[0]:
                 name = args[0]
@@ -148,17 +144,22 @@ class HBNBCommand(cmd.Cmd):
                 print("** attribute name missing **")
                 return
 
-            attribute_value = args[3]
-            attr_type = type(getattr(instance, attribute_name, None))
-
             try:
-                attribute_value = attr_type(attribute_value) # Cast the value to the attribute type
-            except ValueError:
+                attribute_value = args[3]
+            except IndexError:
                 print("** value missing **")
                 return
 
-            setattr(instance, attribute_name, attribute_value)
-            instance.save()
+            try:
+                attr_type = type(getattr(instance, attribute_name))
+                # strip attribute value to remove unnecessary quotes
+                attribute_value = attribute_value.strip('"')
+                # cast the attribute value to its data type
+                attribute_value = attr_type(attribute_value)
+                setattr(instance, attribute_name, attribute_value)
+                instance.save()
+            except AttributeError:
+                print("** attribute name invalid **")
 
     def do_quit(self, arg):
         """
