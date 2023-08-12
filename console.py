@@ -228,7 +228,8 @@ class HBNBCommand(cmd.Cmd):
         Description of the update command
         """
         print("Updates an instance based on the class name and id")
-        print('Usage: update <class name> <id> <attribute name> "<attribute value>"')
+        print('Usage: update <class name> <id> <attribute name> '
+              '"<attribute value>"')
 
     def help_quit(self):
         """

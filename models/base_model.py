@@ -2,8 +2,8 @@
 """
 This is the basemodel module and it defines the BaseModel class
 """
-from datetime import datetime
 import uuid
+from datetime import datetime
 from . import storage
 
 
