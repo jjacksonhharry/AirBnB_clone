@@ -51,4 +51,3 @@ class TestUser(unittest.TestCase):
         store.reload()
         object2 = store.all()
         self.assertEqual(object1, object2)
-
