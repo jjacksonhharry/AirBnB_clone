@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 import cmd
+import re
+
 from models.base_model import BaseModel
 from models import storage
 from models.user import User
@@ -160,11 +162,18 @@ class HBNBCommand(cmd.Cmd):
                 # strip attribute value to remove unnecessary quotes
                 attribute_value = attribute_value.strip('"')
                 # cast the attribute value to its data type
-                attribute_value = attr_type(attribute_value)
-                setattr(instance, attribute_name, attribute_value)
-                instance.save()
+                value = attr_type(attribute_value)
+                setattr(instance, attribute_name, value)
             except AttributeError:
-                print("** attribute name invalid **")
+                if re.match(r'^\d+\.\d+$', attribute_value):
+                    value = float(attribute_value)
+                elif re.search(r'[a-zA-Z]', attribute_value):
+                    value = str(attribute_value)
+                elif re.search(r'\d', attribute_value):
+                    value = attribute_value
+                value = value.strip('"')
+                setattr(instance, attribute_name, value)
+            instance.save()
 
     def do_quit(self, arg):
         """
