@@ -17,6 +17,15 @@ class HBNBCommand(cmd.Cmd):
     Command intepreter for the application
     """
     prompt = '(hbnb) '
+    class_dict = {
+        'BaseModel': BaseModel,
+        'User': User,
+        'State': State,
+        'City': City,
+        'Amenity': Amenity,
+        'Place': Place,
+        'Review': Review
+    }
 
     def do_create(self, class_name):
         """
@@ -27,7 +36,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
         else:
             try:
-                instance = globals()[class_name]()
+                instance = self.class_dict[class_name]()
                 print(instance.id)
                 instance.save()
             except KeyError:
@@ -46,7 +55,7 @@ class HBNBCommand(cmd.Cmd):
                 obj_id = args[1]
             else:
                 obj_id = ""
-            if name not in globals():
+            if name not in self.class_dict:
                 print("** class doesn't exist **")
             elif obj_id == "":
                 print("** instance id missing **")
@@ -75,7 +84,7 @@ class HBNBCommand(cmd.Cmd):
             else:
                 obj_id = args[1]
 
-            if name not in globals():
+            if name not in self.class_dict:
                 print("** class doesn't exist **")
             elif obj_id == "":
                 print("** instance id is missing **")
@@ -105,7 +114,7 @@ class HBNBCommand(cmd.Cmd):
             for key, obj in objects.items():
                 object_list.append(obj.__str__())
             print(object_list)
-        elif args in globals():
+        elif args in self.class_dict:
             for key, obj in objects.items():
                 class_name, obj_id = key.split('.')
                 if args == class_name:
@@ -127,7 +136,7 @@ class HBNBCommand(cmd.Cmd):
 
             if args[0]:
                 name = args[0]
-                if name not in globals():
+                if name not in self.class_dict:
                     print("** class doesn't exist **")
                     return
             try:
