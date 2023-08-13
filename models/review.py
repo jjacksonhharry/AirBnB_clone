@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+# This is the review module defining a class Review
 from models.base_model import BaseModel
 
 
