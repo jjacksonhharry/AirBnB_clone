@@ -52,3 +52,6 @@ class TestUser(unittest.TestCase):
         object2 = store.all()
         self.assertEqual(object1, object2)
 
+
+if __name__ == '__main__':
+    unittest.main()
