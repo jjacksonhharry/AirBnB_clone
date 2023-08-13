@@ -168,10 +168,11 @@ class HBNBCommand(cmd.Cmd):
                 print("** value missing **")
                 return
 
+
+            # strip attribute value to remove unnecessary quotes
+            attribute_value = attribute_value.strip('"')
             try:
                 attr_type = type(getattr(instance, attribute_name))
-                # strip attribute value to remove unnecessary quotes
-                attribute_value = attribute_value.strip('"')
                 # cast the attribute value to its data type
                 value = attr_type(attribute_value)
                 setattr(instance, attribute_name, value)
@@ -181,8 +182,7 @@ class HBNBCommand(cmd.Cmd):
                 elif re.search(r'[a-zA-Z]', attribute_value):
                     value = str(attribute_value)
                 elif re.search(r'\d', attribute_value):
-                    value = attribute_value
-                value = value.strip('"')
+                    value = int(attribute_value)
                 setattr(instance, attribute_name, value)
             instance.save()
 
