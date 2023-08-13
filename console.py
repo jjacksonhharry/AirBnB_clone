@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 import cmd
 import re
 
@@ -185,7 +185,7 @@ class HBNBCommand(cmd.Cmd):
         """
         Exits on EOF (Ctrl+D)
         """
-        print()
+        print("")
         return True
 
     def emptyline(self):
@@ -235,8 +235,8 @@ class HBNBCommand(cmd.Cmd):
         """
         Custom Help guide for quit
         """
-        print("Quits and exits the program")
-        print("Usage: quit")
+        print("Quit command to exit the program")
+        print("")
 
     def help_EOF(self):
         """
