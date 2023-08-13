@@ -1,7 +1,8 @@
 #!/usr/bin/python3
-# This module defines the FileStorage class
+"""This module defines the FileStorage class"""
 import json
 import os
+import datetime
 
 
 class FileStorage():
