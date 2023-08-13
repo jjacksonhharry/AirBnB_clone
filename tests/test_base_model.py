@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+"""unittests for base model"""
 import unittest
 import os
 import uuid
