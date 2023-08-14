@@ -202,7 +202,7 @@ class HBNBCommand(cmd.Cmd):
         """
         Handle Unrecognized command syntax commands
         """
-        commands = command.split('.')
+        commands = command.split('.', 1)
         if len(commands) < 2:
             print("** Unknown syntax:", commands[0])
             return
@@ -214,11 +214,10 @@ class HBNBCommand(cmd.Cmd):
             print("** Unknown syntax:", command)
             return
         method_name = methods[0]
-        if method_name not in ['all', 'count', 'show', 'destroy']:
+        if method_name not in ['all', 'count', 'show', 'destroy', 'update']:
             print("Unknown method:", command)
             return
         args = methods[1].rstrip(')')
-        args = args.strip('"')
 
         if method_name == 'all':
             self.do_all(class_name)
@@ -226,9 +225,17 @@ class HBNBCommand(cmd.Cmd):
             count = self.count_instances(class_name)
             print(count)
         if method_name == 'show':
+            args = args.strip('"')
             self.do_show(f"{class_name} {args}")
         if method_name == 'destroy':
+            args = args.strip('"')
             self.do_destroy(f"{class_name} {args}")
+        if method_name == 'update':
+            args = args.split(', ')
+            obj_id = args[0].strip('"')
+            attr_name = args[1].strip('"')
+            attr_value = args[2]
+            self.do_update(f"{class_name} {obj_id} {attr_name} {attr_value}")
 
     def do_quit(self, arg):
         """
