@@ -21,9 +21,9 @@ class TestFileStorage(unittest.TestCase):
         self.assertIsInstance(all_objects, dict)
 
     def test_private_attr(self):
-    with self.assertRaises(AttributeError):
-        print(self.storage._FileStorage__objects)
-        print(self.storage._FileStorage__file_path)
+        with self.assertRaises(AttributeError):
+            print(self.storage._FileStorage__objects)
+            print(self.storage._FileStorage__file_path)
 
     def test_reload(self):
         # Save the current state of the objects in the storage
@@ -72,7 +72,6 @@ class TestFileStorage(unittest.TestCase):
         # Test that all() method returns the __objects dictionary
         all_objects = self.storage.all()
         self.assertEqual(all_objects, self.storage._FileStorage__objects)
-
 
     def test_reload(self):
         obj_1 = BaseModel()
