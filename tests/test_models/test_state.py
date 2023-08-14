@@ -50,6 +50,64 @@ class TestState(unittest.TestCase):
         obj2 = store.all()
         self.assertEqual(obj1, obj2)
 
+    def test_no_args_instantiates(self):
+        self.assertEqual(State, type(State()))
+
+    def test_id_is_public_str(self):
+        self.assertEqual(str, type(State().id))
+
+    def test_name_is_public_class_attribute(self):
+        st = State()
+        self.assertEqual(str, type(State.name))
+        self.assertIn("name", dir(st))
+        self.assertNotIn("name", st.__dict__)
+
+    def test_two_states_unique_ids(self):
+        st1 = State()
+        st2 = State()
+        self.assertNotEqual(st1.id, st2.id)
+
+    def test_args_unused(self):
+        st = State(None)
+        self.assertNotIn(None, st.__dict__.values())
+
+    def test_instantiation_with_None_kwargs(self):
+        with self.assertRaises(TypeError):
+            State(id=None, created_at=None, updated_at=None)
+
+    def test_to_dict_type(self):
+        self.assertTrue(dict, type(State().to_dict()))
+
+    def test_to_dict_contains_correct_keys(self):
+        st = State()
+        self.assertIn("id", st.to_dict())
+        self.assertIn("created_at", st.to_dict())
+        self.assertIn("updated_at", st.to_dict())
+        self.assertIn("__class__", st.to_dict())
+
+    def test_to_dict_contains_added_attributes(self):
+        st = State()
+        st.middle_name = "Holberton"
+        st.my_number = 98
+        self.assertEqual("Holberton", st.middle_name)
+        self.assertIn("my_number", st.to_dict())
+
+    def test_to_dict_datetime_attributes_are_strs(self):
+        st = State()
+        st_dict = st.to_dict()
+        self.assertEqual(str, type(st_dict["id"]))
+        self.assertEqual(str, type(st_dict["created_at"]))
+        self.assertEqual(str, type(st_dict["updated_at"]))
+
+    def test_contrast_to_dict_dunder_dict(self):
+        st = State()
+        self.assertNotEqual(st.to_dict(), st.__dict__)
+
+    def test_to_dict_with_arg(self):
+        st = State()
+        with self.assertRaises(TypeError):
+            st.to_dict(None)
+
 
 if __name__ == '__main__':
     unittest.main()
