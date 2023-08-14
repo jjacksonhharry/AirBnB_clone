@@ -53,10 +53,8 @@ class BaseModel():
         Returns a dictionary containg all key/values of
         __dict__ instance
         """
-        if isinstance(self.created_at, datetime):
-            self.created_at = self.created_at.isoformat()
-        if isinstance(self.updated_at, datetime):
-            self.updated_at = self.updated_at.isoformat()
-        obj_dict = self.__dict__
+        obj_dict = self.__dict__.copy()
+        obj_dict['created_at'] = self.created_at.isoformat()
+        obj_dict['updated_at'] = self.updated_at.isoformat()
         obj_dict['__class__'] = self.__class__.__name__
         return obj_dict
