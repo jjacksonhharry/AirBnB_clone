@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+"""unittests for models/city.py"""
 import unittest
 import os
 import json

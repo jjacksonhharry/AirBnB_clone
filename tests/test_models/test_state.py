@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+"""unittests for models/state.py"""
 import unittest
 import os
 import json

@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+"""unittests for models/amenity.py"""
 import unittest
 import os
 import json
