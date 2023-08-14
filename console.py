@@ -186,6 +186,30 @@ class HBNBCommand(cmd.Cmd):
                 setattr(instance, attribute_name, value)
             instance.save()
 
+    def default(self, command):
+        """
+        Handle Unrecognized command syntax commands
+        """
+        commands = command.split('.')
+        if len(commands) < 2:
+            print("** Unknown syntax:", commands[0])
+            return
+        else:
+            class_name, method = commands[0], commands[1]
+
+        methods = method.split('(')
+        if len(methods) < 2:
+            print("** Unknown syntax:", command)
+            return
+        method_name = methods[0]
+        if method_name not in ['all']:
+            print("Unknown method:", command)
+            return
+        args = methods[0].rstrip(')')
+
+        if method_name == 'all':
+            self.do_all(class_name)
+
     def do_quit(self, arg):
         """
         Quits and exits the program
