@@ -3,7 +3,6 @@
 import cmd
 import re
 import json
-
 from models.base_model import BaseModel
 from models import storage
 from models.user import User
@@ -167,7 +166,6 @@ class HBNBCommand(cmd.Cmd):
             except IndexError:
                 print("** value missing **")
                 return
-
 
             # strip attribute value to remove unnecessary quotes
             attribute_value = attribute_value.strip('"')

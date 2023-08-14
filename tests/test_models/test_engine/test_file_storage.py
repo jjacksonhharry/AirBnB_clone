@@ -21,6 +21,25 @@ class TestFileStorage(unittest.TestCase):
         self.assertIsInstance(all_objects, dict)
 
     def test_private_attr(self):
+    with self.assertRaises(AttributeError):
+        print(self.storage._FileStorage__objects)
+        print(self.storage._FileStorage__file_path)
+
+    def test_reload(self):
+        # Save the current state of the objects in the storage
+        current_objects = self.storage.all()
+
+        # Create a new storage instance and reload data
+        storage_2 = FileStorage()
+        storage_2.reload()
+
+        # Get the reloaded objects from the new storage instance
+        reloaded_objects = storage_2.all()
+
+        # Compare the current and reloaded objects
+        self.assertDictEqual(current_objects, reloaded_objects)
+
+    def test_private_attr(self):
         with self.assertRaises(AttributeError):
             print(self.storage.__objects)
             print(self.storage.__file_path)
@@ -39,6 +58,21 @@ class TestFileStorage(unittest.TestCase):
             data = json.load(file)
         key = "{}.{}".format("BaseModel", obj_1.id)
         self.assertIn(key, data)
+
+    def test_objects_initialization(self):
+        # Ensure that __objects is initially empty
+        self.assertEqual(len(self.storage._FileStorage__objects), 0)
+
+    def test_new_method_updates_objects(self):
+        # Test that new() method updates __objects correctly
+        self.storage.new(self.obj_1)
+        self.assertEqual(len(self.storage._FileStorage__objects), 1)
+
+    def test_all_method_returns_objects(self):
+        # Test that all() method returns the __objects dictionary
+        all_objects = self.storage.all()
+        self.assertEqual(all_objects, self.storage._FileStorage__objects)
+
 
     def test_reload(self):
         obj_1 = BaseModel()

@@ -52,6 +52,22 @@ class TestUser(unittest.TestCase):
         object2 = store.all()
         self.assertEqual(object1, object2)
 
+    def test_user_email_attribute(self):
+        self.assertTrue(hasattr(self.user, 'email'))
+        self.assertEqual(self.user.email, "")
+
+    def test_user_password_attribute(self):
+        self.assertTrue(hasattr(self.user, 'password'))
+        self.assertEqual(self.user.password, "")
+
+    def test_user_first_name_attribute(self):
+        self.assertTrue(hasattr(self.user, 'first_name'))
+        self.assertEqual(self.user.first_name, "")
+
+    def test_user_last_name_attribute(self):
+        self.assertTrue(hasattr(self.user, 'last_name'))
+        self.assertEqual(self.user.last_name, "")
+
 
 if __name__ == '__main__':
     unittest.main()
