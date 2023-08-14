@@ -214,16 +214,19 @@ class HBNBCommand(cmd.Cmd):
             print("** Unknown syntax:", command)
             return
         method_name = methods[0]
-        if method_name not in ['all', 'count']:
+        if method_name not in ['all', 'count', 'show']:
             print("Unknown method:", command)
             return
-        args = methods[0].rstrip(')')
+        args = methods[1].rstrip(')')
+        args = args.strip('"')
 
         if method_name == 'all':
             self.do_all(class_name)
         if method_name == 'count':
             count = self.count_instances(class_name)
             print(count)
+        if method_name == 'show':
+            self.do_show(f"{class_name} {args}")
 
     def do_quit(self, arg):
         """
