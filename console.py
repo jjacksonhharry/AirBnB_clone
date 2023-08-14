@@ -214,7 +214,7 @@ class HBNBCommand(cmd.Cmd):
             print("** Unknown syntax:", command)
             return
         method_name = methods[0]
-        if method_name not in ['all', 'count', 'show']:
+        if method_name not in ['all', 'count', 'show', 'destroy']:
             print("Unknown method:", command)
             return
         args = methods[1].rstrip(')')
@@ -227,6 +227,8 @@ class HBNBCommand(cmd.Cmd):
             print(count)
         if method_name == 'show':
             self.do_show(f"{class_name} {args}")
+        if method_name == 'destroy':
+            self.do_destroy(f"{class_name} {args}")
 
     def do_quit(self, arg):
         """
