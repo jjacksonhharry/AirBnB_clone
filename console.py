@@ -63,8 +63,9 @@ class HBNBCommand(cmd.Cmd):
             else:
                 id_exists = False
                 objects = storage.all()
+                obj_key = f"{name}.{obj_id}"
                 for key, obj in objects.items():
-                    if obj_id == obj.id:
+                    if key == obj_key:
                         id_exists = True
                         print(obj)
 
@@ -92,9 +93,9 @@ class HBNBCommand(cmd.Cmd):
             else:
                 id_exists = False
                 objects = storage.all()
-
+                obj_key = f"{name}.{obj_id}"
                 for key, obj in objects.items():
-                    if obj_id == obj.id:
+                    if obj_key == key:
                         id_exists = True
                         to_delete = key
 
@@ -144,8 +145,9 @@ class HBNBCommand(cmd.Cmd):
                 obj_id = args[1]
                 objects = storage.all()
                 id_exists = False
+                obj_key = f"{name}.{obj_id}"
                 for key, obj in objects.items():
-                    if obj.id == obj_id:
+                    if obj_key == key:
                         id_exists = True
                         instance = obj
                 if id_exists is False:
