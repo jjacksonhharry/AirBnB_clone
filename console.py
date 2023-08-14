@@ -186,6 +186,18 @@ class HBNBCommand(cmd.Cmd):
                 setattr(instance, attribute_name, value)
             instance.save()
 
+    def count_instances(self, arg):
+        """
+        retrieve the number of instances of a class
+        """
+        count = 0
+        objects = storage.all()
+        for key, obj in objects.items():
+            class_name, obj_id = key.split('.')
+            if class_name == arg:
+                count += 1
+        return count
+
     def default(self, command):
         """
         Handle Unrecognized command syntax commands
@@ -202,13 +214,16 @@ class HBNBCommand(cmd.Cmd):
             print("** Unknown syntax:", command)
             return
         method_name = methods[0]
-        if method_name not in ['all']:
+        if method_name not in ['all', 'count']:
             print("Unknown method:", command)
             return
         args = methods[0].rstrip(')')
 
         if method_name == 'all':
             self.do_all(class_name)
+        if method_name == 'count':
+            count = self.count_instances(class_name)
+            print(count)
 
     def do_quit(self, arg):
         """
