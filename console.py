@@ -231,7 +231,7 @@ class HBNBCommand(cmd.Cmd):
             args = args.strip('"')
             self.do_destroy(f"{class_name} {args}")
         if method_name == 'update':
-            if args.find('{') and args.find('}'):
+            if '{' in args and '}' in args:
                 args = args.split(', ', 1)
                 obj_id = args[0].strip('"')
                 attr_args = json.loads(args[1])
