@@ -231,11 +231,18 @@ class HBNBCommand(cmd.Cmd):
             args = args.strip('"')
             self.do_destroy(f"{class_name} {args}")
         if method_name == 'update':
-            args = args.split(', ')
-            obj_id = args[0].strip('"')
-            attr_name = args[1].strip('"')
-            attr_value = args[2]
-            self.do_update(f"{class_name} {obj_id} {attr_name} {attr_value}")
+            if args.find('{') and args.find('}'):
+                args = args.split(', ', 1)
+                obj_id = args[0].strip('"')
+                attr_args = json.loads(args[1])
+                for key, value in attr_args.items():
+                    self.do_update(f'{class_name} {obj_id} {key} "{value}"')
+            else:
+                args = args.split(', ')
+                obj_id = args[0].strip('"')
+                attr_name = args[1].strip('"')
+                attr_value = args[2]
+                self.do_update(f"{class_name} {obj_id} {attr_name} {attr_value}")
 
     def do_quit(self, arg):
         """
