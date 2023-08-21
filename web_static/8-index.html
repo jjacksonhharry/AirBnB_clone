@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Displays a Header and a Footer a filter box (dropdown list) and the result of the search</title>
+    <link rel="stylesheet" type="text/css" href="styles/4-common.css">
+    <link rel="stylesheet" type="text/css" href="styles/3-header.css">
+    <link rel="stylesheet" type="text/css" href="styles/3-footer.css">
+    <link rel="stylesheet" type="text/css" href="styles/6-filters.css">
+    <link rel="stylesheet" type="text/css" href="styles/8-places.css">
+    <link rel="icon" type="image/png" href="images/icon.png">
+</head>
+<body>
+    <header>
+        <div class="logo"></div>
+    </header>
+    <div class="container">
+        <section class="filters">
+            <div class="locations">
+                <h3>States</h3>
+                <ul class="popover">
+                    <li>
+                        <h2>State 1</h2>
+                        <ul>
+                            <li>City 1</li>
+                            <li>City 2</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <h2>State 2</h2>
+                        <ul>
+                            <li>City 3</li>
+                            <li>City 4</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="amenities">
+                <h3>Amenities</h3>
+                <ul class="popover">
+                    <li>Amenity 1</li>
+                    <li>Amenity 2</li>
+                    <li>Amenity 3</li>
+                </ul>
+            </div>
+            <button class="search-button">Search</button>
+        </section>
+        <section class="places">
+            <h1>Places</h1>
+            <article>
+                <div class="price_by_night">$200</div>
+                <h2>Place 1</h2>
+                <div class="information">
+                    <div class="max_guest">
+                        <h3><i class="fas fa-users"></i> Guests</h3>
+                        <p>4</p>
+                    </div>
+                    <div class="number_rooms">
+                        <h3><i class="fas fa-bed"></i> Bedrooms</h3>
+                        <p>2</p>
+                    </div>
+                    <div class="number_bathrooms">
+                        <h3><i class="fas fa-bath"></i> Bathrooms</h3>
+                        <p>2</p>
+                    </div>
+                </div>
+                <div class="user">
+                    <h3><strong>Owner:</strong> John Doe</h3>
+                </div>
+                <div class="description">
+                    <h3>Description:</h3>
+                    <p>Fake description text goes here.</p>
+                </div>
+            </article>
+            <!-- Add more articles for each place -->
+        </section>
+    </div>
+    <footer>
+        Best School
+    </footer>
+</body>
+</html>
